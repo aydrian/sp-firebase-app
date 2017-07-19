@@ -37,6 +37,7 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <h1>Players: {this.state.players.length}</h1>
+        <p>Send an email to zoo@hey.aydrian.me with your name in the subject.</p>
         <ul className="list-group">
           {this.state.players.map((player, index) => (
             <li className="list-group-item" key={index}>
