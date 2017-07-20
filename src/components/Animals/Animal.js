@@ -7,16 +7,8 @@ const formatDate = (unixStr) => {
   return moment(unixStr, "X").format("llll")
 }
 
-const firebaseToArray = (obj) => {
-  let arr = [];
-  Object.keys(obj).forEach((key) => {
-    arr.push(obj[key]);
-  });
-  return arr;
-}
-
 const Opens = ({opens}) => {
-  let arr = _.sortBy(firebaseToArray(opens), (item) => {
+  let arr = _.sortBy(_.toArray(opens), (item) => {
     return moment(item.timestamp, "X");
   }).reverse();
   return (
@@ -25,7 +17,7 @@ const Opens = ({opens}) => {
 };
 
 const Clicks = ({clicks}) => {
-  let arr = firebaseToArray(clicks);
+  let arr = _.toArray(clicks);
   let groups = _.groupBy(arr, 'target_link_name');
   let group_keys = Object.keys(groups);
   return (
