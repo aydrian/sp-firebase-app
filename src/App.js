@@ -33,10 +33,10 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h3>SparkPost Zoo</h3>
+          <h2>SparkPost Zoo</h2>
         </div>
         <p>Send an email to <a href="mailto:zoo@hey.aydrian.me">zoo@hey.aydrian.me</a> with your name in the subject.</p>
-        <h1>Animals: {this.state.players.length}</h1>
+        <h3>Animals: {this.state.players.length}</h3>
         <Animals players={this.state.players} />
       </div>
     );

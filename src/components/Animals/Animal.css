@@ -6,13 +6,13 @@
 
 .Animal-group-item {
   display: inline-block;
-  margin: 10px;
+  margin: 5px;
 }
 
 .Animal {
   width: 200px;
   height: 200px;
-  border:10px solid #37aadc;
+  border:5px solid #37aadc;
   border-radius:25px;
   -moz-border-radius:25px;
   -webkit-border-radius:25px;
