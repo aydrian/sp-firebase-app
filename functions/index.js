@@ -3,6 +3,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
+const SparkPost = require('sparkpost');
+const spClient = new SparkPost(functions.config().sparkpost.api_key);
 
 const animals = [
   {name: 'dog', emoji: '🐶'},
@@ -49,7 +51,8 @@ exports.incoming = functions.https.onRequest((req, res) => {
   }
 
   const batch = req.body;
-  for (let i = 0; i < batch.length; i++) {
+  const batchLen = batch.length;
+  for (let i = 0; i < batchLen; i++) {
     // For this application, we can safely assume the batch will only
     // contain relay_message events
     const msg = batch[i].msys.relay_message;
@@ -61,6 +64,67 @@ exports.incoming = functions.https.onRequest((req, res) => {
       animal: getRandomAnimal()
     }
     admin.database().ref(`/players/${escapeEmailAddress(player.email)}`).set(player);
+    spClient.transmissions.send({
+      campaign_id: 'sparkpost-zoo',
+      content: {
+        template_id: 'sparkpost-zoo'
+      },
+      recipients: [{
+        address: { email: player.email, name: player.subject },
+        substitution_data: player
+      }]
+    });
   }
+  res.status(200).send();
+});
+
+const processMessageEvent = (event) => {
+  if(event.campaign_id !== 'sparkpost-zoo') { return; }
+  if(event.type !== 'delivery') { return; }
+  console.log('Delivery Event');
+  admin.database().ref(`/players/${escapeEmailAddress(event.rcpt_to)}`).update({
+    delivered: event.timestamp
+  });
+};
+
+const processTrackEvent = (event) => {
+  if(event.campaign_id !== 'sparkpost-zoo') { return; }
+  if(event.type === 'open') {
+    console.log('Open Event');
+    admin.database().ref(`/players/${escapeEmailAddress(event.rcpt_to)}/opens`).push({
+      timestamp: event.timestamp,
+      user_agent: event.user_agent,
+      geo_ip: event.geo_ip
+    });
+  } else if (event.type === 'click') {
+    console.log('Click Event');
+    admin.database().ref(`/players/${escapeEmailAddress(event.rcpt_to)}/clicks`).push({
+      timestamp: event.timestamp,
+      user_agent: event.user_agent,
+      geo_ip: event.geo_ip,
+      target_link_name: event.target_link_name,
+      target_link_url: event.target_link_url
+    });
+  }
+};
+
+exports.incomingEvents = functions.https.onRequest((req, res) => {
+  if (req.method != "POST") {
+     res.status(404).send();
+     return;
+  }
+
+  const batch = req.body;
+  const batchLen = batch.length;
+  for (let i = 0; i < batchLen; i++) {
+    const event = batch[i].msys;
+    console.log(event);
+    if(event && event.message_event) {
+      processMessageEvent(event.message_event);
+    } else if(event && event.track_event) {
+      processTrackEvent(event.track_event);
+    }
+  }
+
   res.status(200).send();
 });
