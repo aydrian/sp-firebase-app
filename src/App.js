@@ -38,6 +38,7 @@ class App extends Component {
         <p>Send an email to <a href="mailto:zoo@hey.aydrian.me">zoo@hey.aydrian.me</a> with your name in the subject.</p>
         <h3>Animals: {this.state.players.length}</h3>
         <Animals players={this.state.players} />
+        <div className="footer">Code available on Github: <a href="https://github.com/aydrian/sp-firebase-app">sp-firebase-app</a></div>
       </div>
     );
   }
