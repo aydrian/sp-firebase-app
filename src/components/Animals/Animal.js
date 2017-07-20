@@ -12,7 +12,7 @@ const Opens = ({opens}) => {
     return moment(item.timestamp, "X");
   }).reverse();
   return (
-    <div className="Open"><span className="title">Last Open:</span> <br />{formatDate(arr[0].timestamp)}</div>
+    <div className="Open"><span className="title">Last Opened:</span> <br />{formatDate(arr[0].timestamp)}</div>
   );
 };
 
@@ -38,7 +38,7 @@ const Animal = ({player, key}) => {
         <div className="Animal-emoji">{player.animal.emoji}</div>
         <div className="Animal-name">{player.subject}</div>
         {player.delivered &&
-          <div className="Delivered"><span className="title">Email delivered:</span><br /> {formatDate(player.delivered)}.</div>
+          <div className="Delivered"><span className="title">Email Delivered:</span><br /> {formatDate(player.delivered)}.</div>
         }
         {player.opens &&
           <Opens opens={player.opens} />
