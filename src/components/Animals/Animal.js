@@ -46,6 +46,9 @@ const Animal = ({player, key}) => {
         {player.clicks &&
           <Clicks clicks={player.clicks} />
         }
+        {!player.delivered && !player.opens && !player.clicks &&
+          <div>Whoosh! We're sending you an email!</div>
+        }
       </div>
     </li>
   );
