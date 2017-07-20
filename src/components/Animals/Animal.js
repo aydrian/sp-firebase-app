@@ -12,7 +12,7 @@ const Opens = ({opens}) => {
     return moment(item.timestamp, "X");
   }).reverse();
   return (
-    <div>Last Open: {formatDate(arr[0].timestamp)}</div>
+    <div className="Open"><span className="title">Last Open:</span> <br />{formatDate(arr[0].timestamp)}</div>
   );
 };
 
@@ -21,8 +21,8 @@ const Clicks = ({clicks}) => {
   let groups = _.groupBy(arr, 'target_link_name');
   let group_keys = Object.keys(groups);
   return (
-    <div>Clicks:
-      <ul>
+    <div className="Click"><span className="title">Clicks:</span>
+      <ul className="Click-group">
         {group_keys.map((group_key, index) => (
           <li key={index}><a href={groups[group_key][0].target_link_url} >{group_key}</a>: {groups[group_key].length}</li>
         ))}
@@ -38,7 +38,7 @@ const Animal = ({player, key}) => {
         <div className="Animal-emoji">{player.animal.emoji}</div>
         <div className="Animal-name">{player.subject}</div>
         {player.delivered &&
-          <div>Email delivered at {formatDate(player.delivered)}.</div>
+          <div className="Delivered"><span className="title">Email delivered:</span><br /> {formatDate(player.delivered)}.</div>
         }
         {player.opens &&
           <Opens opens={player.opens} />
