@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
 import * as firebase from 'firebase';
 import Animals from './components/Animals/Animals';
@@ -33,10 +33,10 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h3>SparkPost Zoo</h3>
         </div>
-        <h1>Players: {this.state.players.length}</h1>
-        <p>Send an email to zoo@hey.aydrian.me with your name in the subject.</p>
+        <p>Send an email to <a href="mailto:zoo@hey.aydrian.me">zoo@hey.aydrian.me</a> with your name in the subject.</p>
+        <h1>Animals: {this.state.players.length}</h1>
         <Animals players={this.state.players} />
       </div>
     );

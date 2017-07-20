@@ -1,0 +1,27 @@
+.Animal-group {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Animal-group-item {
+  display: inline-block;
+  margin: 10px;
+}
+
+.Animal {
+  width: 200px;
+  height: 200px;
+  border:10px solid #37aadc;
+  border-radius:25px;
+  -moz-border-radius:25px;
+  -webkit-border-radius:25px;
+}
+
+.Animal-emoji {
+  font-size: 50px;
+}
+
+.Animal-name {
+  font-weight: bold;
+}

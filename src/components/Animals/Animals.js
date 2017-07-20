@@ -1,9 +1,10 @@
 import React from 'react';
 import Animal from './Animal';
+import './Animal.css';
 
 const Animals = ({players}) => {
   return (
-    <ul className="list-group">
+    <ul className="Animal-group">
       {players.map((player, index) => (
         <Animal player={player} key={index} />
       ))}
