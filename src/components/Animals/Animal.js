@@ -31,9 +31,9 @@ const Clicks = ({clicks}) => {
   );
 }
 
-const Animal = ({player, key}) => {
+const Animal = ({player}) => {
   return (
-    <li className="Animal-group-item" key={key}>
+    <li className="Animal-group-item">
       <div className="Animal">
         <div className="Animal-emoji">{player.animal.emoji}</div>
         <div className="Animal-name">{player.subject}</div>
