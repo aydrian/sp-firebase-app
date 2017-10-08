@@ -16,5 +16,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
   }
 }
