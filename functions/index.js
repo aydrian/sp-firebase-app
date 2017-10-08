@@ -45,7 +45,7 @@ const getRandomAnimal = () => {
 }
 
 exports.incoming = functions.https.onRequest((req, res) => {
-  if (req.method != 'POST') {
+  if (req.method !== 'POST') {
     res.status(404).send()
     return
   }
@@ -109,7 +109,7 @@ const processTrackEvent = (event) => {
 }
 
 exports.incomingEvents = functions.https.onRequest((req, res) => {
-  if (req.method != 'POST') {
+  if (req.method !== 'POST') {
     res.status(404).send()
     return
   }
